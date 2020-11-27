@@ -1,0 +1,24 @@
+Dreamplay likes the strings that read the same upside down, that is, if we reverse the entire string, the string remains unchanged,
+in other words, palindrome strings
+Bob does not want to upset his friend, and would thus like to make some changes, to the string P he already has, so that the string P 
+is liked by dreamplay. Bob is allowed to make only two kinds of changes.
+    1. Add a character at end.
+    2. Replace a character.
+Moreover, since Dreamplay is waiting for the string, Bob wants to do this in minimum steps. 
+Can you find minimum number of steps needed to change the string P such that it reads same from both ends.
+
+Input::
+    Only line of input consists of the string P
+Output::
+    Print a single integer, the minimum number of steps needed.
+
+Constraints::
+    * String P consists only of lowercase latin letters.
+    * 1 ≤ length(P) ≤ 5000
+
+SAMPLE INPUT::
+    * axcaa
+SAMPLE OUTPUT:: 
+    * 1
+Explanation::
+    We can change the char 'x' from string "axcaa" to obtain "aacaa" which satisfies the required property. Thus 1 step is needed.
