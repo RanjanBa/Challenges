@@ -12,54 +12,67 @@ bool e(int i, int j) {
 	return i >= 0 && i < r && j >= 0 && j < c && !vis[i][j];
 }
 
-void check(arr<int, 2> v) {
-	memset(vis, 0, sizeof(vis));
-	int dp[r][c];
+//void check(arr<int, 2> v) {
+	//memset(vis, 0, sizeof(vis));
+	//int dp[r][c];
 	
-	for(int i = 0; i < r; i++) {
-		for(int j = 0; j < c; j++) {
-			dp[i][j] = p[i][j];
-		}
-	}
+	//for(int i = 0; i < r; i++) {
+		//for(int j = 0; j < c; j++) {
+			//dp[i][j] = p[i][j];
+		//}
+	//}
 	
-	queue<arr<int, 3>> qu;
-	qu.push({v[0], v[1], 0});
+	//queue<arr<int, 3>> qu;
+	//qu.push({v[0], v[1], 0});
 	
-	dp[v[0]][v[1]] = 0;
-	vis[v[0]][v[1]] = 1;
+	//dp[v[0]][v[1]] = 0;
+	//vis[v[0]][v[1]] = 1;
 	
-	while(!qu.empty()) {
-		arr<int, 3> a = qu.front();
-		qu.pop();
-		int i = a[0], j = a[1], d = a[2];
-		for(int k = 0; k < 4; k++) {
-			int ni = i + di[k], nj = j + dj[k];
-			if(e(ni, nj)) {
-				vis[ni][nj] = 1;
-				dp[ni][nj] = min(dp[ni][nj], d + 1);
-				qu.push({ni, nj, d + 1});
-			}
-		}
-	}
+	//while(!qu.empty()) {
+		//arr<int, 3> a = qu.front();
+		//qu.pop();
+		//int i = a[0], j = a[1], d = a[2];
+		//for(int k = 0; k < 4; k++) {
+			//int ni = i + di[k], nj = j + dj[k];
+			//if(e(ni, nj)) {
+				//vis[ni][nj] = 1;
+				//dp[ni][nj] = min(dp[ni][nj], d + 1);
+				//qu.push({ni, nj, d + 1});
+			//}
+		//}
+	//}
 	
+	//int mx = 0;
+	//for(int i = 0; i < r; i++) {
+		//for(int j = 0; j < c; j++) {
+			//mx = max(mx, dp[i][j]);
+		//}
+	//}
+	
+	//ans = min(ans, mx);
+//}
+
+bool check(int m) {
 	int mx = 0;
 	for(int i = 0; i < r; i++) {
 		for(int j = 0; j < c; j++) {
-			mx = max(mx, dp[i][j]);
+			mx = max(mx, p[i][j]);
 		}
 	}
 	
-	ans = min(ans, mx);
+	return mx <= m;
 }
 
-void bfs(arr<int, 2> v) {
+void bfs(vector<arr<int,2>> off) {
 	memset(vis, 0, sizeof(vis));
 	
 	queue<arr<int, 3>> qu;
-	qu.push({v[0], v[1], 0});
 	
-	p[v[0]][v[1]] = 0;
-	vis[v[0]][v[1]] = 1;
+	for(auto v : off) {
+		qu.push({v[0], v[1], 0});
+		p[v[0]][v[1]] = 0;
+		vis[v[0]][v[1]] = 1;
+	}
 	
 	while(!qu.empty()) {
 		arr<int, 3> a = qu.front();
@@ -68,9 +81,11 @@ void bfs(arr<int, 2> v) {
 		for(int k = 0; k < 4; k++) {
 			int ni = i + di[k], nj = j + dj[k];
 			if(e(ni, nj)) {
+				if(vis[ni][nj]) continue;
+				
 				vis[ni][nj] = 1;
-				p[ni][nj] = min(p[ni][nj], d + 1);
-				qu.push({ni, nj, d + 1});
+				p[ni][nj] = d + 1;
+				qu.push({ni, nj, p[ni][nj]});
 			}
 		}
 	}
@@ -94,17 +109,35 @@ void solve() {
 	}
 	
 	ans = INT_MAX;
-	memset(p, 0x3f3f, sizeof(p));
+	//memset(p, 0x3f3f, sizeof(p));
 	
-	for(int i = 0; i < (int)off.size(); i++) {
-		bfs(off[i]);
-	}
+	//for(int i = 0; i < (int)off.size(); i++) {
+		//bfs(off[i]);
+	//}
+
+	//bfs(off);
 	
-	for(int i = 0; i < r; i++) {
-		for(int j = 0; j < c; j++) {
-			check({i, j});
+	int l = 0, h = 600;
+	
+	while(l <= h) {
+		int m = (l + h) >> 1;
+		
+		bool ch = check(off, m);
+		
+		if(ch) {
+			ans = m;
+			l = m - 1;
+		} else {
+			r = m + 1;
 		}
+		cout << "m: " << m << endl;
 	}
+	
+	//for(int i = 0; i < r; i++) {
+		//for(int j = 0; j < c; j++) {
+			//check({i, j});
+		//}
+	//}
 	
 	cout << ans << endl;
 	
