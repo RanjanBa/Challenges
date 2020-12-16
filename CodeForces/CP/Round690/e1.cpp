@@ -20,53 +20,63 @@ using namespace std;
 
 template<typename T>
 inline void debug(vector<T> li) {
-	FORV(v, li) {
-		cout << v << " ";
-	}
-	
-	cout << endl;
+    FORV(v, li) {
+        cout << v << " ";
+    }
+    
+    cout << endl;
 }
 
 template<typename T>
 inline void debug(vector<vector<T>> li) {
-	FORV(v1, li) {
-		FORV(v2, v1) {
-			cout << v2 << " ";
-		}
-		
-		cout << endl;
-	}
+    FORV(v1, li) {
+        FORV(v2, v1) {
+            cout << v2 << " ";
+        }
+        
+        cout << endl;
+    }
 }
 
-const int mxN = 2e5;
+const int mxN = 2e5 + 5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
+int vec[mxN];
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	
-	string res = "";
-	for(int i = 0; i < k; i++) {
-		res += 'a';
-	}
-	
-	for(int i = k, l = 0; i < n; i++, l++) {
-		if(l % 3 == 0) {
-			res += 'c';
-		} else if(l % 3 == 1) {
-			res += 'b';
-		} else {
-			res += 'a';
-		}
-	}
-	
-	cout << res << "\n";
+    int n;
+    cin >> n;
+    FOR(i, n) {
+        cin >> vec[i];
+    }
+
+    sort(vec, vec+n);
+    int res = 0;
+
+    int i = 0, j = 2;
+    while(i < n-2 && j < n) {
+        while(j < n && vec[j] - vec[i] <= 2) {
+            j++;
+        }
+
+        int len = j - i;
+        if(len >= 3) {
+            int mult = 1;
+            for(int l = len; l > 3; l--) {
+                mult *= l;
+            }
+
+            res += mult;
+        }
+        // cout << i << " : " << res << ", len: " << len << endl;
+        i = max(i + 1,j - 2);
+    }
+
+    cout << res << "\n";
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     int T;
     
     cin >> T;

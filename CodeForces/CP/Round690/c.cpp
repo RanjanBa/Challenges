@@ -20,53 +20,69 @@ using namespace std;
 
 template<typename T>
 inline void debug(vector<T> li) {
-	FORV(v, li) {
-		cout << v << " ";
-	}
-	
-	cout << endl;
+    FORV(v, li) {
+        cout << v << " ";
+    }
+    
+    cout << endl;
 }
 
 template<typename T>
 inline void debug(vector<vector<T>> li) {
-	FORV(v1, li) {
-		FORV(v2, v1) {
-			cout << v2 << " ";
-		}
-		
-		cout << endl;
-	}
+    FORV(v1, li) {
+        FORV(v2, v1) {
+            cout << v2 << " ";
+        }
+        
+        cout << endl;
+    }
 }
 
 const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	
-	string res = "";
-	for(int i = 0; i < k; i++) {
-		res += 'a';
-	}
-	
-	for(int i = k, l = 0; i < n; i++, l++) {
-		if(l % 3 == 0) {
-			res += 'c';
-		} else if(l % 3 == 1) {
-			res += 'b';
-		} else {
-			res += 'a';
-		}
-	}
-	
-	cout << res << "\n";
+    int x;
+    cin >> x;
+
+    if(x < 10) {
+        cout << x << "\n";
+        return;
+    }
+
+    if(x > 45) {
+        cout << -1 << "\n";
+        return;
+    }
+
+    // if(x >= 36) {
+    //     string str;
+    //     x = 45 - x;
+    //     FORS(i, 1, 10) {
+    //         if(x == i) continue;
+
+    //         str += to_string(i);
+    //     }
+    // }
+
+    int s = 0;
+    string str;
+    for (int i = 9; i > 0; i--)
+    {
+        if(i + s > x) continue;
+
+        s += i;
+        str += to_string(i);
+    }
+
+    reverse(str.begin(), str.end());
+
+    cout << str << "\n";
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     int T;
     
     cin >> T;

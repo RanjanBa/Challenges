@@ -20,60 +20,69 @@ using namespace std;
 
 template<typename T>
 inline void debug(vector<T> li) {
-	FORV(v, li) {
-		cout << v << " ";
-	}
-	
-	cout << endl;
+    FORV(v, li) {
+        cout << v << " ";
+    }
+    
+    cout << endl;
 }
 
 template<typename T>
 inline void debug(vector<vector<T>> li) {
-	FORV(v1, li) {
-		FORV(v2, v1) {
-			cout << v2 << " ";
-		}
-		
-		cout << endl;
-	}
+    FORV(v1, li) {
+        FORV(v2, v1) {
+            cout << v2 << " ";
+        }
+        
+        cout << endl;
+    }
 }
 
 const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	
-	string res = "";
-	for(int i = 0; i < k; i++) {
-		res += 'a';
-	}
-	
-	for(int i = k, l = 0; i < n; i++, l++) {
-		if(l % 3 == 0) {
-			res += 'c';
-		} else if(l % 3 == 1) {
-			res += 'b';
-		} else {
-			res += 'a';
-		}
-	}
-	
-	cout << res << "\n";
+    int n;
+    cin >> n;
+
+    bool vis[n+1];
+
+    memset(vis, 0, sizeof(vis));
+
+    int x; cin >> x;
+
+    FOR(i, x) {
+        int l;
+        cin >> l;
+
+        vis[l] = true;
+    }
+
+    int y; cin >> y;
+    FOR(i, y) {
+        int l;
+        cin >> l;
+
+        vis[l] = true;
+    }
+
+    bool flag = true;
+    FORS(i,1, n+1) {
+        flag &= vis[i];
+    }
+
+    if(flag) {
+        cout << "I become the guy.\n";
+    } else {
+        cout << "Oh, my keyboard!\n";
+    }
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	
-    int T;
-    
-    cin >> T;
-    
-    for(int t = 1; t <= T; t++) {
-        solve();
-    }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    solve();
     
     return 0;
 }

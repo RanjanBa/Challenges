@@ -20,60 +20,51 @@ using namespace std;
 
 template<typename T>
 inline void debug(vector<T> li) {
-	FORV(v, li) {
-		cout << v << " ";
-	}
-	
-	cout << endl;
+    FORV(v, li) {
+        cout << v << " ";
+    }
+    
+    cout << endl;
 }
 
 template<typename T>
 inline void debug(vector<vector<T>> li) {
-	FORV(v1, li) {
-		FORV(v2, v1) {
-			cout << v2 << " ";
-		}
-		
-		cout << endl;
-	}
+    FORV(v1, li) {
+        FORV(v2, v1) {
+            cout << v2 << " ";
+        }
+        
+        cout << endl;
+    }
 }
 
 const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	
-	string res = "";
-	for(int i = 0; i < k; i++) {
-		res += 'a';
-	}
-	
-	for(int i = k, l = 0; i < n; i++, l++) {
-		if(l % 3 == 0) {
-			res += 'c';
-		} else if(l % 3 == 1) {
-			res += 'b';
-		} else {
-			res += 'a';
-		}
-	}
-	
-	cout << res << "\n";
+    int n;
+    cin >> n;
+
+    string res = "I hate";
+    FORS(i, 2, n + 1) {
+        res += " that ";
+        if(i & 1) {
+            res += "I hate";
+        } else {
+            res += "I love";
+        }
+    }
+
+    res += " it\n";
+
+    cout << res;
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	
-    int T;
-    
-    cin >> T;
-    
-    for(int t = 1; t <= T; t++) {
-        solve();
-    }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    solve();
     
     return 0;
 }
