@@ -37,35 +37,41 @@ inline void debug(vector<vector<T>> li) {
 	}
 }
 
-const int mxN = 1e5;
+// ------ main function ------
+
+const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n;
-	cin >> n;
-	set<int> st;
+	int n, m;
 	
+	cin >> n >> m;
+	vector<int> vec;
 	rep(i,0,n,1) {
 		int a;
 		cin >> a;
-		st.insert(a);
+		
+		if(a < 0) {
+			vec.push_back(abs(a));
+		}
 	}
 	
-	cout << sz(st) << "\n";
+	sort(all(vec), greater<int>());
+	
+	int c = 0, sum = 0;
+	while(c < vec.size() && c < m) {
+		sum += vec[c];
+		c++;
+	}
+	
+	cout << sum << "\n";
 }
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	
-    int T;
-    
-    cin >> T;
-    
-    for(int t = 1; t <= T; t++) {
-        solve();
-    }
-    
-    return 0;
-}
 
+	solve();	
+	
+	return 0;
+}

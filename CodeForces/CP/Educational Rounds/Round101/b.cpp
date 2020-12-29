@@ -37,21 +37,53 @@ inline void debug(vector<vector<T>> li) {
 	}
 }
 
-const int mxN = 1e5;
+const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
 	int n;
 	cin >> n;
-	set<int> st;
+	vector<int> a(n);
 	
 	rep(i,0,n,1) {
-		int a;
-		cin >> a;
-		st.insert(a);
+		cin >> a[i];
 	}
 	
-	cout << sz(st) << "\n";
+	int m; cin >> m;
+	vector<int> b(m);
+	rep(i,0,m,1) {
+		cin >> b[i];
+	}
+	
+	int res = max(0, a[0]);
+	
+	rep(i,1,n,1) {
+		a[i] = a[i] + a[i-1];
+		res = max(res, a[i]);
+	}
+	
+	res = max(res, b[0]);
+	
+	rep(i,1,m,1) {
+		b[i] = b[i] + b[i-1];
+		res = max(res, b[i]);
+	}
+	
+	rep(i,0,n,1) {
+		rep(j,0,m,1) {
+			int sum = a[i] + b[j];
+			res = max(res, sum);
+		}
+	}
+	
+	rep(i,0,m,1) {
+		rep(j,0,n,1) {
+			int sum = b[i] + a[j];
+			res = max(res, sum);
+		}
+	}
+	
+	cout << res << "\n";
 }
 
 int main() {

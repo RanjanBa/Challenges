@@ -37,21 +37,36 @@ inline void debug(vector<vector<T>> li) {
 	}
 }
 
-const int mxN = 1e5;
+const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n;
-	cin >> n;
-	set<int> st;
+	int n, k;
+	cin >> n >> k;
 	
-	rep(i,0,n,1) {
-		int a;
-		cin >> a;
-		st.insert(a);
+	if(k == 0) {
+		if(n & 1) {
+			cout << 1 << "\n";
+		} else {
+			cout << 0 << "\n";
+		}
+	} else if(k >= n) {
+		cout << (k - n) << "\n";
+	} else {
+		if(k & 1) {
+			if((n & 1) == 0) {
+				cout << 1 << "\n";
+			} else {
+				cout << 0 << "\n";
+			}
+		} else {
+			if(n & 1) {
+				cout << 1 << "\n";
+			} else {
+				cout << 0 << "\n";
+			}
+		}
 	}
-	
-	cout << sz(st) << "\n";
 }
 
 int main() {

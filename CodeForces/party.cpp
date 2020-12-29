@@ -37,35 +37,42 @@ inline void debug(vector<vector<T>> li) {
 	}
 }
 
-const int mxN = 1e5;
+// ------ main function ------
+
+const int mxN = 2005;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
+
+int pa[mxN];
+
+int dfs(int idx) {
+	if(idx == -1) return 0;
+	return dfs(pa[idx]) + 1;
+}
 
 void solve() {
 	int n;
 	cin >> n;
-	set<int> st;
 	
-	rep(i,0,n,1) {
-		int a;
-		cin >> a;
-		st.insert(a);
+	rep(i,1,n+1,1) {
+		cin >> pa[i];
 	}
 	
-	cout << sz(st) << "\n";
+	int res = 0;
+	
+	rep(i,1,n+1,1) {
+		int temp = dfs(pa[i]);
+		
+		res = max(res,temp);
+	}
+	
+	cout << (res + 1) << "\n";
 }
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	
-    int T;
-    
-    cin >> T;
-    
-    for(int t = 1; t <= T; t++) {
-        solve();
-    }
-    
-    return 0;
-}
 
+	solve();	
+	
+	return 0;
+}

@@ -37,35 +37,39 @@ inline void debug(vector<vector<T>> li) {
 	}
 }
 
-const int mxN = 1e5;
+// ------ main function ------
+
+const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n;
-	cin >> n;
-	set<int> st;
+	int k; cin >> k;
+	vector<int> mo(12);
+	rep(i,0,12,1) cin >> mo[i];
 	
-	rep(i,0,n,1) {
-		int a;
-		cin >> a;
-		st.insert(a);
+	sort(all(mo));
+	
+	int cnt = 0;
+	if(k > 0) {
+		repr(i,0,12,1) {
+			k -= mo[i];
+			cnt++;
+			if(k <= 0) {
+				break;
+			}
+		}
 	}
-	
-	cout << sz(st) << "\n";
+	if(k <= 0)
+		cout << cnt << "\n";
+	else
+		cout << -1 << "\n";
 }
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	
-    int T;
-    
-    cin >> T;
-    
-    for(int t = 1; t <= T; t++) {
-        solve();
-    }
-    
-    return 0;
-}
 
+	solve();	
+	
+	return 0;
+}

@@ -37,21 +37,61 @@ inline void debug(vector<vector<T>> li) {
 	}
 }
 
-const int mxN = 1e5;
+const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve() {
-	int n;
-	cin >> n;
-	set<int> st;
+	string str; cin >> str;
+	
+	int n = sz(str);
+	
+	int b = 0, q = 0;
+	
+	stack<int> st1, st2;
 	
 	rep(i,0,n,1) {
-		int a;
-		cin >> a;
-		st.insert(a);
+		if(str[i] == '(') {
+			st1.push(i);
+		} else if(str[i] == ')') {
+			if(sz(st1)) {
+				st1.pop();
+			} else {
+				if(sz(st2) == 0) {
+					cout << "NO\n";
+					return;
+				} else {
+					st2.pop();
+				}
+				
+			}
+		} else {
+			st2.push(i);
+		}
 	}
 	
-	cout << sz(st) << "\n";
+	while(sz(st1)) {
+		if(sz(st2) == 0) {
+			cout << "NO\n";
+			return;
+		}
+		
+		if(st2.top() > st1.top()) {
+			st1.pop();
+			st2.pop();
+		} else {
+			cout << "NO\n";
+			return;
+		}
+	}
+	
+	
+	
+	if(sz(st2) & 1) {
+		cout << "NO\n";
+		return;
+	}
+	
+	cout << "YES\n";
 }
 
 int main() {
