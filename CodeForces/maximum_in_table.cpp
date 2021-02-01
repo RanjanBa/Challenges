@@ -20,84 +20,60 @@ using namespace std;
 template <typename T>
 inline void debug(vector<T> li)
 {
-	repv(v, li)
-	{
-		cout << v << " ";
-	}
-
-	cout << "\n";
+    repv(v, li)
+    {
+        cout << v << " ";
+    }
+    cout << "\n";
 }
 
 template <typename T>
 inline void debug(vector<vector<T>> li)
 {
-	repv(v1, li)
-	{
-		repv(v2, v1)
-		{
-			cout << v2 << " ";
-		}
+    repv(v1, li)
+    {
+        repv(v2, v1)
+        {
+            cout << v2 << " ";
+        }
 
-		cout << "\n";
-	}
+        cout << "\n";
+    }
 }
 
-const int mxN = 30;
+// ------ main function ------
+
+const int mxN = 10;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
-int a[mxN], b[mxN];
+int vec[mxN][mxN];
 
 void solve()
 {
-	int n, k;
-	cin >> n >> k;
+    int n;
+    cin >> n;
 
-	rep(i, 0, n, 1)
-	{
-		cin >> a[i];
-	}
+    rep(i, 0, n, 1)
+    {
+        vec[0][i] = 1;
+        vec[i][0] = 1;
+    }
 
-	rep(i, 0, n, 1)
-	{
-		cin >> b[i];
-	}
+    rep(i, 1, n, 1)
+    {
+        rep(j, 1, n, 1)
+        {
+            vec[i][j] = vec[i - 1][j] + vec[i][j - 1];
+        }
+    }
 
-	sort(a, a + n), sort(b, b + n);
-
-	int i = 0, j = n - 1;
-
-	while (k > 0 && i < n && j >= 0)
-	{
-		if (a[i] < b[j])
-		{
-			a[i] = b[j];
-			k--;
-			i++;
-			j--;
-		}
-		else
-		{
-			j--;
-		}
-	}
-
-	int sum = accumulate(a, a + n, 0);
-
-	cout << sum << "\n";
+    cout << vec[n - 1][n - 1] << "\n";
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	int T;
-
-	cin >> T;
-
-	for (int t = 1; t <= T; t++)
-	{
-		solve();
-	}
-
-	return 0;
+    solve();
+    return 0;
 }

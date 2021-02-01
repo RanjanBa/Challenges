@@ -20,84 +20,59 @@ using namespace std;
 template <typename T>
 inline void debug(vector<T> li)
 {
-	repv(v, li)
-	{
-		cout << v << " ";
-	}
+    repv(v, li)
+    {
+        cout << v << " ";
+    }
 
-	cout << "\n";
+    cout << "\n";
 }
 
 template <typename T>
 inline void debug(vector<vector<T>> li)
 {
-	repv(v1, li)
-	{
-		repv(v2, v1)
-		{
-			cout << v2 << " ";
-		}
+    repv(v1, li)
+    {
+        repv(v2, v1)
+        {
+            cout << v2 << " ";
+        }
 
-		cout << "\n";
-	}
+        cout << "\n";
+    }
 }
 
-const int mxN = 30;
+const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
-int a[mxN], b[mxN];
 
 void solve()
 {
-	int n, k;
-	cin >> n >> k;
+    int x, y, n;
+    cin >> x >> y >> n;
 
-	rep(i, 0, n, 1)
-	{
-		cin >> a[i];
-	}
+    int d = n / x;
 
-	rep(i, 0, n, 1)
-	{
-		cin >> b[i];
-	}
+    int res = d * x + y;
+    if (res > n)
+    {
+        res = (d - 1) * x + y;
+    }
 
-	sort(a, a + n), sort(b, b + n);
-
-	int i = 0, j = n - 1;
-
-	while (k > 0 && i < n && j >= 0)
-	{
-		if (a[i] < b[j])
-		{
-			a[i] = b[j];
-			k--;
-			i++;
-			j--;
-		}
-		else
-		{
-			j--;
-		}
-	}
-
-	int sum = accumulate(a, a + n, 0);
-
-	cout << sum << "\n";
+    cout << res << "\n";
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	int T;
+    int T;
+    cin >> T;
 
-	cin >> T;
+    for (int t = 1; t <= T; t++)
+    {
+        solve();
+    }
 
-	for (int t = 1; t <= T; t++)
-	{
-		solve();
-	}
-
-	return 0;
+    return 0;
 }
