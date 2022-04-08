@@ -1,2 +1,11 @@
-4D
-AS AC AD AH 5H
+5
+abcde
+c
+abcde
+b
+x
+y
+aaaaaaaaaaaaaaa
+a
+contest
+t

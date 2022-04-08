@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-6
-=======
+NO
 YES
 NO
 YES
 YES
->>>>>>> acdc5003e2daee6614b96dab3a798675763bc509
