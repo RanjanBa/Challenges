@@ -18,28 +18,39 @@
 using namespace std;
 
 template <typename T>
+inline void debug(const T li[], int n)
+{
+    rep(i, 0, n, 1)
+    {
+        cout << li[i] << " ";
+    }
+
+    cout << "\n";
+}
+
+template <typename T>
 inline void debug(vector<T> li)
 {
-	repv(v, li)
-	{
-		cout << v << " ";
-	}
+    repv(v, li)
+    {
+        cout << v << " ";
+    }
 
-	cout << "\n";
+    cout << "\n";
 }
 
 template <typename T>
 inline void debug(vector<vector<T>> li)
 {
-	repv(v1, li)
-	{
-		repv(v2, v1)
-		{
-			cout << v2 << " ";
-		}
+    repv(v1, li)
+    {
+        repv(v2, v1)
+        {
+            cout << v2 << " ";
+        }
 
-		cout << "\n";
-	}
+        cout << "\n";
+    }
 }
 
 // ------ main function ------
@@ -49,44 +60,33 @@ const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve()
 {
-	int n;
-	cin >> n;
+    ll a, b, c, d, e, f;
+    cin >> a >> b >> c >> d >> e >> f;
 
-	string str;
-	cin >> str;
+    ll ans = 0;
 
-	int one = 0, zero = 0;
-	rep(i, 0, sz(str), 1)
-	{
-		if (str[i] == 'z')
-		{
-			zero++;
-		}
-		else if (str[i] == 'n')
-		{
-			one++;
-		}
-	}
+    if (e >= f)
+    {
+        ans = e * min(a, d);
+        d -= min(a, d);
+        ans += f * min(b, min(c, d));
+    }
+    else
+    {
+        ans = f * min(b, min(c, d));
+        d -= min(b, min(c, d));
+        ans += e * min(a, d);
+    }
 
-	rep(i, 0, one, 1)
-	{
-		cout << 1 << " ";
-	}
-
-	rep(i, 0, zero, 1)
-	{
-		cout << 0 << " ";
-	}
-
-	cout << "\n";
+    cout << ans << "\n";
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	solve();
+    solve();
 
-	return 0;
+    return 0;
 }

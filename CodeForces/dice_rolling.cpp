@@ -18,75 +18,71 @@
 using namespace std;
 
 template <typename T>
+inline void debug(const T li[], int n)
+{
+    rep(i, 0, n, 1)
+    {
+        cout << li[i] << " ";
+    }
+
+    cout << "\n";
+}
+
+template <typename T>
 inline void debug(vector<T> li)
 {
-	repv(v, li)
-	{
-		cout << v << " ";
-	}
+    repv(v, li)
+    {
+        cout << v << " ";
+    }
 
-	cout << "\n";
+    cout << "\n";
 }
 
 template <typename T>
 inline void debug(vector<vector<T>> li)
 {
-	repv(v1, li)
-	{
-		repv(v2, v1)
-		{
-			cout << v2 << " ";
-		}
+    repv(v1, li)
+    {
+        repv(v2, v1)
+        {
+            cout << v2 << " ";
+        }
 
-		cout << "\n";
-	}
+        cout << "\n";
+    }
 }
-
-// ------ main function ------
 
 const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve()
 {
-	int n;
-	cin >> n;
+    int x;
+    cin >> x;
 
-	string str;
-	cin >> str;
+    int ans = x / 7;
+    if (x % 7 != 0)
+    {
+        ans++;
+    }
 
-	int one = 0, zero = 0;
-	rep(i, 0, sz(str), 1)
-	{
-		if (str[i] == 'z')
-		{
-			zero++;
-		}
-		else if (str[i] == 'n')
-		{
-			one++;
-		}
-	}
-
-	rep(i, 0, one, 1)
-	{
-		cout << 1 << " ";
-	}
-
-	rep(i, 0, zero, 1)
-	{
-		cout << 0 << " ";
-	}
-
-	cout << "\n";
+    cout << ans << "\n";
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	solve();
+    int T;
 
-	return 0;
+    cin >> T;
+
+    for (int t = 1; t <= T; t++)
+    {
+        solve();
+    }
+
+    return 0;
 }

@@ -18,28 +18,39 @@
 using namespace std;
 
 template <typename T>
+inline void debug(const T li[], int n)
+{
+    rep(i, 0, n, 1)
+    {
+        cout << li[i] << " ";
+    }
+
+    cout << "\n";
+}
+
+template <typename T>
 inline void debug(vector<T> li)
 {
-	repv(v, li)
-	{
-		cout << v << " ";
-	}
+    repv(v, li)
+    {
+        cout << v << " ";
+    }
 
-	cout << "\n";
+    cout << "\n";
 }
 
 template <typename T>
 inline void debug(vector<vector<T>> li)
 {
-	repv(v1, li)
-	{
-		repv(v2, v1)
-		{
-			cout << v2 << " ";
-		}
+    repv(v1, li)
+    {
+        repv(v2, v1)
+        {
+            cout << v2 << " ";
+        }
 
-		cout << "\n";
-	}
+        cout << "\n";
+    }
 }
 
 // ------ main function ------
@@ -49,44 +60,44 @@ const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
 
 void solve()
 {
-	int n;
-	cin >> n;
+    int n, k;
+    cin >> n >> k;
 
-	string str;
-	cin >> str;
+    int s = 2 * n;
+    int ans = s / k;
 
-	int one = 0, zero = 0;
-	rep(i, 0, sz(str), 1)
-	{
-		if (str[i] == 'z')
-		{
-			zero++;
-		}
-		else if (str[i] == 'n')
-		{
-			one++;
-		}
-	}
+    if (s % k != 0)
+    {
+        ans++;
+    }
 
-	rep(i, 0, one, 1)
-	{
-		cout << 1 << " ";
-	}
+    s = 5 * n;
 
-	rep(i, 0, zero, 1)
-	{
-		cout << 0 << " ";
-	}
+    ans += s / k;
 
-	cout << "\n";
+    if (s % k != 0)
+    {
+        ans++;
+    }
+
+    s = 8 * n;
+
+    ans += s / k;
+
+    if (s % k != 0)
+    {
+        ans++;
+    }
+
+    cout << ans << "\n";
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	solve();
+    solve();
 
-	return 0;
+    return 0;
 }
