@@ -1,3 +1,5 @@
+//TODO::
+
 #include <bits/stdc++.h>
 #define ll long long
 #define ld long double
@@ -57,15 +59,14 @@ inline void debug(vector<vector<T>> li)
 
 const int mxN = 2e5;
 const int di[4] = {1, 0, -1, 0}, dj[4] = {0, 1, 0, -1};
-int lgN = 30;
 
 class Node
 {
 public:
-    int idx, w;
+    ll idx, w;
     vector<Node *> children;
-    vector<pair<Node *, int>> up;
-    Node(int _idx, int _w)
+    vector<pair<Node *, ll>> up;
+    Node(ll _idx, ll _w)
     {
         idx = _idx;
         w = _w;
@@ -74,66 +75,100 @@ public:
 
 Node *root;
 
-un_map<int, Node *> mp;
+un_map<ll, Node *> mp;
 
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
 
-    int cnt = 1;
+    ll cnt = 1;
     root = new Node(cnt, 0);
     mp.insert({cnt, root});
     cnt++;
 
-    int last = 0;
+    ll last = 0;
     while (n--)
     {
-        int x, p, q;
-        cin >> x >> p >> q;
+        ll u, p, q;
+        cin >> u >> p >> q;
 
-        int r = p ^ last;
-        int w = q ^ last;
+        ll r = p ^ last;
 
-        if (x == 1)
+        if (mp.find(r) == mp.end())
         {
+            cout << "n : " << n << ", idx : " << r << ". Error in solution...\n";
+            return;
+        }
+
+        if (u == 1)
+        {
+            ll w = q ^ last;
             Node *nd = new Node(cnt, w);
             mp.insert({cnt, nd});
             mp[r]->children.phb(nd);
             cnt++;
 
-            nd->up[0] = {mp[r], w};
+            nd->up.phb({mp[r], w});
             Node *cur = mp[r];
-            for (int i = 1; i < lgN; i++)
+            ll i = 1;
+            while (i - 1 < cur->up.size())
             {
-                if (i - 1 >= cur->up.size())
-                {
-                    break;
-                }
-                nd->up[i] = {cur->up[i - 1].first, cur->up[i - 1].second + cur->w};
+                nd->up.phb({cur->up[i - 1].first, cur->up[i - 1].second + nd->up[i - 1].second});
                 cur = cur->up[i - 1].first;
             }
         }
         else
         {
-            last = 1;
+            ll x = q ^ last;
+
+            cout << "r : " << r << ", x : " << x << "\n";
+
+            for (ll i = 1; i < cnt; i++)
+            {
+                cout << "(" << i << "," << mp[i]->w << ") : ";
+
+                for (ll j = 0; j < mp[i]->children.size(); j++)
+                {
+                    cout << mp[i]->children[j]->idx << " ";
+                }
+
+                //     // for (ll j = 0; j < mp[i]->up.size(); j++)
+                //     // {
+                //     //     cout << mp[i]->up[j].second << " ";
+                //     // }
+
+                cout << "\n";
+            }
+
+            Node *nd = mp[r];
+            ll ans = 0;
+
+            while (x >= nd->w && nd->up.size())
+            {
+                for (ll i = nd->up.size() - 1; i >= 0; i--)
+                {
+                    ll rem = x - nd->up[i].second;
+
+                    if (rem >= 0)
+                    {
+                        ans += (1 << i);
+                        x -= nd->up[i].second;
+                        nd = nd->up[i].first;
+                        break;
+                    }
+                }
+            }
+
+            if (nd == root)
+            {
+                ans++;
+            }
+
+            cout << ans << "\n";
+
+            last = ans;
         }
-    }
-
-    for (int i = 1; i < cnt; i++)
-    {
-        cout << "idx " << i << " : ";
-        // for (int j = 0; j < mp[i]->children.size(); j++)
-        // {
-        //     cout << mp[i]->children[j]->idx << " ";
-        // }
-
-        // for (int j = 0; j < mp[i]->up.size(); j++)
-        // {
-        //     // cout << mp[i]->up[j].second << " ";
-        // }
-
-        cout << "\n";
     }
 }
 
